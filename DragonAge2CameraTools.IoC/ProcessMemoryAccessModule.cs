@@ -1,0 +1,18 @@
+﻿using Autofac;
+using DragonAge2CameraTools.ProcessMemoryAccess;
+using DragonAge2CameraTools.ProcessMemoryAccess.Interfaces;
+using DragonAge2CameraTools.UserInputHandling.Factories;
+using DragonAge2CameraTools.UserInputHandling.Factories.Interfaces;
+
+namespace DragonAge2CameraTools.IoC
+{
+    public class ProcessMemoryAccessModule : Module
+    {
+        protected override void Load(ContainerBuilder builder)
+        {
+            builder.RegisterType<ProcessFunctionsServiceService>().As<IProcessFunctionsService>().SingleInstance();
+            builder.RegisterType<ActionLoopServiceFactory>().As<IActionLoopServiceFactory>().SingleInstance();
+            builder.RegisterType<ActiveWindowService>().As<IActiveWindowService>().SingleInstance();
+        }
+    }
+}

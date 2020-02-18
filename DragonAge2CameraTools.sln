@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragonAge2CameraTools.GameManagement", "DragonAge2CameraTools.GameManagement\DragonAge2CameraTools.GameManagement.csproj", "{D6714783-935A-476A-89FF-23E75900CDE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragonAge2CameraTools.UserInputHandling", "DragonAge2CameraTools.UserInputHandling\DragonAge2CameraTools.UserInputHandling.csproj", "{47945B6F-6D41-40EE-BABC-EC1DA3ED4D80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragonAge2CameraTools.ProcessMemoryAccess", "DragonAge2CameraTools.ProcessMemoryAccess\DragonAge2CameraTools.ProcessMemoryAccess.csproj", "{1B87BE78-54F1-4243-B86C-DE60506B2BAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragonAge2CameraTools.Wpf", "DragonAge2CameraTools.Wpf\DragonAge2CameraTools.Wpf.csproj", "{5F562C59-1C50-4CEC-93AD-C044A139EF27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragonAge2CameraTools.ViewLogic", "DragonAge2CameraTools.ViewLogic\DragonAge2CameraTools.ViewLogic.csproj", "{EA9757B0-0AC5-45F9-BFC2-9D198D7E79C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragonAge2CameraTools.IoC", "DragonAge2CameraTools.IoC\DragonAge2CameraTools.IoC.csproj", "{B3DDD460-2BBB-46BE-8AC0-2B75A8ADF38F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D6714783-935A-476A-89FF-23E75900CDE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6714783-935A-476A-89FF-23E75900CDE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6714783-935A-476A-89FF-23E75900CDE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6714783-935A-476A-89FF-23E75900CDE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47945B6F-6D41-40EE-BABC-EC1DA3ED4D80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47945B6F-6D41-40EE-BABC-EC1DA3ED4D80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47945B6F-6D41-40EE-BABC-EC1DA3ED4D80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47945B6F-6D41-40EE-BABC-EC1DA3ED4D80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B87BE78-54F1-4243-B86C-DE60506B2BAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B87BE78-54F1-4243-B86C-DE60506B2BAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B87BE78-54F1-4243-B86C-DE60506B2BAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B87BE78-54F1-4243-B86C-DE60506B2BAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F562C59-1C50-4CEC-93AD-C044A139EF27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F562C59-1C50-4CEC-93AD-C044A139EF27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F562C59-1C50-4CEC-93AD-C044A139EF27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F562C59-1C50-4CEC-93AD-C044A139EF27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA9757B0-0AC5-45F9-BFC2-9D198D7E79C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA9757B0-0AC5-45F9-BFC2-9D198D7E79C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA9757B0-0AC5-45F9-BFC2-9D198D7E79C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA9757B0-0AC5-45F9-BFC2-9D198D7E79C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3DDD460-2BBB-46BE-8AC0-2B75A8ADF38F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3DDD460-2BBB-46BE-8AC0-2B75A8ADF38F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3DDD460-2BBB-46BE-8AC0-2B75A8ADF38F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3DDD460-2BBB-46BE-8AC0-2B75A8ADF38F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C9983E65-C441-4757-9EFE-84191D1B94C5}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+EndGlobal

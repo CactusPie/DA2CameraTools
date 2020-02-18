@@ -1,0 +1,276 @@
+﻿<Window x:Class="DragonAge2CameraTools.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:DragonAge2CameraTools.Wpf.Controls"
+        xmlns:converters="clr-namespace:DragonAge2CameraTools.Wpf.Converters"
+        mc:Ignorable="d"
+        DataContext="{Binding MainWindowViewModel, Source={StaticResource ViewModelLocator}}"
+        Title="CactusPie's Camera Tools" Height="450" Width="525" MinWidth="470" MinHeight="515">
+
+    <Window.Resources>
+        <converters:KeyBindingViewModelConverter x:Key="KeyBindingViewModelConverter" />
+        <converters:GameProcessStatusLabelConverter x:Key="GameProcessStatusLabelConverter" />
+        <converters:GameProcessStatusLabelColorConverter x:Key="GameProcessStatusLabelColorConverter" />
+
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+
+        <Thickness x:Key="MainPadding">5</Thickness>
+
+        <Style TargetType="CheckBox">
+            <Setter Property="VerticalContentAlignment" Value="Top" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style TargetType="TabItem">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        
+        <Style TargetType="TabControl">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        
+        <Style x:Key="Slider" TargetType="Slider">
+            <Setter Property="Margin" Value="5,3,0,0" />
+        </Style>
+        
+        <Style x:Key="SliderLabel" TargetType="Label">
+            <Setter Property="ContentStringFormat" Value="{}{0:#,0.00}" />
+            <Setter Property="MinWidth" Value="35" />
+        </Style>
+
+        <Style x:Key="CheckboxText" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="5,5,10,5" />
+        </Style>
+
+        <Style x:Key="BindButton" TargetType="Button">
+            <Setter Property="Margin" Value="5,5,0,5" />
+        </Style>
+
+        <Style x:Key="ControlsRowLabel" TargetType="Label">
+            <Setter Property="Margin" Value="0,5,0,5" />
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TabControl Grid.Row="0" BorderThickness="0">
+            <TabItem Header="Camera settings">
+                <Grid Name="GridCameraSettings" Margin="{StaticResource MainPadding}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <GroupBox Grid.Row="0" Grid.Column="0" Header="Unlimited zoom">
+                        <CheckBox IsChecked="{Binding UnlimitedZoomEnabled}" 
+                                  Margin="5,0,0,0" 
+                                  ToolTip="Allows to zoom out infinitely far away. This setting will increase the maximum automatic camera threshold">
+                            <TextBlock Text="Enable unlimited zoom" Style="{StaticResource CheckboxText}" />
+                        </CheckBox>
+                    </GroupBox>
+
+                    <GroupBox Grid.Row="1" Header="Manual tactical camera">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" IsChecked="{Binding ManualTacticalCameraEnabled}"
+                                      ToolTip="Allows to trigger tactical camera manually as well as switch out of automatic tactical camera">
+                                <TextBlock Text="Enable manual tactical camera" Style="{StaticResource CheckboxText}" />
+                            </CheckBox>
+
+                            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource ControlsRowLabel}" Content="Toggle tactical camera" />
+                            <controls:KeyBindingButtons Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                                                        KeyBindings="{Binding KeyBindings.TacticalCameraToggleKeys}"
+                                                        BindKeysCommand="{Binding BindKeysCommand}" />
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Grid.Row="2" Header="Automatic tactical camera">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <CheckBox Grid.Row="0" 
+                                      Grid.Column="0" 
+                                      Grid.ColumnSpan="2" 
+                                      ToolTip="Enables automatic camera that turns on at a zoom distance defined below"
+                                      IsChecked="{Binding AutomaticTacticalCameraEnabled}">
+                                <TextBlock Text="Enable automatic tactical camera" Style="{StaticResource CheckboxText}" />
+                            </CheckBox>
+
+                            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                                  ToolTip="The zoom distance at which automatic tactical camera turns on. Unlimited zoom enables bigger threshold.">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Content="Trigger threshold" />
+                                <Label Grid.Column="1" Style="{StaticResource SliderLabel}" Content="{Binding AutomaticCameraThresholdValue}" />
+                                <Slider Grid.Column="2" Style="{StaticResource Slider}"
+                                        Minimum="{Binding AutomaticCameraThresholdMinValue}"
+                                        Maximum="{Binding AutomaticCameraThresholdMaxValue, Mode=TwoWay}"
+                                        Value="{Binding AutomaticCameraThresholdValue, Mode=TwoWay}" />
+                            </Grid>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,5" TextWrapping="WrapWithOverflow" TextAlignment="Justify">
+                                In order for automatic tactical camera to work, you need to align the zoom 
+                                controls below with your controls in game. If you haven't changed your zoom controls
+                                in game, you can use the default settings. These keys do not conflict with the controls section.
+                            </TextBlock>
+                            
+                            <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource ControlsRowLabel}" Content="Zoom in" />
+                            <controls:KeyBindingButtons Grid.Row="3" Grid.Column="1"
+                                                        KeyBindings="{Binding KeyBindings.ZoomInKeys}"
+                                                        BindKeysCommand="{Binding BindKeysCommand}" />
+
+                            <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource ControlsRowLabel}" Content="Zoom out" />
+                            <controls:KeyBindingButtons Grid.Row="4" Grid.Column="1"
+                                                        KeyBindings="{Binding KeyBindings.ZoomOutKeys}"
+                                                        BindKeysCommand="{Binding BindKeysCommand}" />
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Controls">
+                <Grid Margin="5" Height="{Binding ActualHeight, ElementName=GridCameraSettings}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource ControlsRowLabel}"
+                           Content="Camera forward" />
+                    <controls:KeyBindingButtons Grid.Row="0" Grid.Column="1"
+                                                KeyBindings="{Binding KeyBindings.CameraForwardKeys}"
+                                                BindKeysCommand="{Binding BindKeysCommand}" />
+
+                    <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource ControlsRowLabel}" Content="Camera back" />
+                    <controls:KeyBindingButtons Grid.Row="1" Grid.Column="1"
+                                                KeyBindings="{Binding KeyBindings.CameraBackKeys}"
+                                                BindKeysCommand="{Binding BindKeysCommand}" />
+
+                    <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource ControlsRowLabel}" Content="Camera left" />
+                    <controls:KeyBindingButtons Grid.Row="2" Grid.Column="1"
+                                                KeyBindings="{Binding KeyBindings.CameraLeftKeys}"
+                                                BindKeysCommand="{Binding BindKeysCommand}" />
+
+                    <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource ControlsRowLabel}"
+                           Content="Camera right" />
+                    <controls:KeyBindingButtons Grid.Row="3" Grid.Column="1"
+                                                KeyBindings="{Binding KeyBindings.CameraRightKeys}"
+                                                BindKeysCommand="{Binding BindKeysCommand}" />
+
+                    <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource ControlsRowLabel}" Content="Camera down" />
+                    <controls:KeyBindingButtons Grid.Row="4" Grid.Column="1"
+                                                KeyBindings="{Binding KeyBindings.CameraDownKeys}"
+                                                BindKeysCommand="{Binding BindKeysCommand}" />
+
+                    <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource ControlsRowLabel}" Content="Camera up" />
+                    <controls:KeyBindingButtons Grid.Row="5" Grid.Column="1"
+                                                KeyBindings="{Binding KeyBindings.CameraUpKeys}"
+                                                BindKeysCommand="{Binding BindKeysCommand}" />
+
+                    <Label Grid.Row="6" Grid.Column="0" Style="{StaticResource ControlsRowLabel}" Content="Horizontal speed" />
+                    <Grid Grid.Row="6" Grid.Column="1" Margin="0,5,0,0" ToolTip="Defines the speed of horizontal camera movement">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Style="{StaticResource SliderLabel}" Content="{Binding HorizontalCameraSpeed}"/>
+                        <Slider Grid.Column="1" 
+                                Style="{StaticResource Slider}" 
+                                Minimum="0.01" 
+                                Maximum="2" 
+                                Value="{Binding HorizontalCameraSpeed, Mode=TwoWay}" />
+                    </Grid>
+                    
+                    <Label Grid.Row="7" Grid.Column="0" Style="{StaticResource ControlsRowLabel}" Content="Vertical speed" />
+                    <Grid Grid.Row="7" Grid.Column="1" Margin="0,5,0,0" ToolTip="Defines the speed of vertical camera movement">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Style="{StaticResource SliderLabel}" Content="{Binding VerticalCameraSpeed}" />
+                        <Slider Grid.Column="1" Style="{StaticResource Slider}" Minimum="0.01" Maximum="1" Value="{Binding VerticalCameraSpeed, Mode=TwoWay}" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <UniformGrid Grid.Row="1" Grid.Column="0" Margin="{StaticResource MainPadding}" HorizontalAlignment="Stretch" Rows="1" Columns="2">
+            <Button VerticalAlignment="Center" 
+                    Content="Save" Margin="0,0,2,0" 
+                    Height="30" 
+                    ToolTip="Save settings to settings.cfg file and apply them in game"
+                    Command="{Binding SaveSettingsCommand}" />
+            <Button 
+                VerticalAlignment="Center" 
+                Content="Restore saved settings" 
+                Margin="2,0,0,0" 
+                Height="30" 
+                ToolTip="Restore settings from settings.cfg file without applying them in game"
+                Command="{Binding RestoreSavedSettingsCommand}" />
+        </UniformGrid>
+
+        <Grid Grid.Row="2" Margin="{StaticResource MainPadding}" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Height="30" VerticalAlignment="Center" Content="Status:" />
+            <Label Grid.Column="1"
+                   Height="30"
+                   VerticalAlignment="Center"
+                   Foreground="{Binding GameProcessStatus, Converter={StaticResource GameProcessStatusLabelColorConverter}}"
+                   Content="{Binding GameProcessStatus, Converter={StaticResource GameProcessStatusLabelConverter}}" />
+        </Grid>
+    </Grid>
+</Window>

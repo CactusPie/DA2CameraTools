@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EA9757B0-0AC5-45F9-BFC2-9D198D7E79C8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DragonAge2CameraTools.ViewLogic</RootNamespace>
+    <AssemblyName>DragonAge2CameraTools.ViewLogic</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=5.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da">
+      <HintPath>..\packages\Autofac.5.1.0\lib\net461\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Factories\Interfaces\ITacticalCameraServiceFactory.cs" />
+    <Compile Include="Factories\TacticalCameraServiceFactory.cs" />
+    <Compile Include="Interfaces\ITacticalCameraService.cs" />
+    <Compile Include="Settings\ApplicationSettingsRepository.cs" />
+    <Compile Include="Settings\Data\KeyBindingSettings.cs" />
+    <Compile Include="Settings\Data\ApplicationSettings.cs" />
+    <Compile Include="Settings\Interfaces\IApplicationSettingsRepository.cs" />
+    <Compile Include="Settings\Interfaces\ISettingsMapper.cs" />
+    <Compile Include="Settings\Interfaces\IStringSerializer.cs" />
+    <Compile Include="Settings\JsonSerializer.cs" />
+    <Compile Include="Data\ViewModelKeyBindings.cs" />
+    <Compile Include="Data\KeyBindingChangeParameters.cs" />
+    <Compile Include="Enums\KeyBindingTarget.cs" />
+    <Compile Include="FullyObservableCollection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\SettingsMapper.cs" />
+    <Compile Include="TacticalCameraService.cs" />
+    <Compile Include="ViewModels\Base\ViewModelBase.cs" />
+    <Compile Include="ViewModels\KeyBindingViewmodel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DragonAge2CameraTools.GameManagement\DragonAge2CameraTools.GameManagement.csproj">
+      <Project>{d6714783-935a-476a-89ff-23e75900cde3}</Project>
+      <Name>DragonAge2CameraTools.GameManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DragonAge2CameraTools.ProcessMemoryAccess\DragonAge2CameraTools.ProcessMemoryAccess.csproj">
+      <Project>{1b87be78-54f1-4243-b86c-de60506b2bab}</Project>
+      <Name>DragonAge2CameraTools.ProcessMemoryAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DragonAge2CameraTools.UserInputHandling\DragonAge2CameraTools.UserInputHandling.csproj">
+      <Project>{47945b6f-6d41-40ee-babc-ec1da3ed4d80}</Project>
+      <Name>DragonAge2CameraTools.UserInputHandling</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
