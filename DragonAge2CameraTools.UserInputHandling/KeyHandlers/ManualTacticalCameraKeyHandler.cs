@@ -75,6 +75,7 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
             _gameValueService.DisableAutoCameraAngleAdjustment();
             _gameValueService.DisableCollisionZoomAdjustment();
             _gameValueService.DisableZoom();
+            _gameValueService.DisableCenteringCameraBehindCharacter();
             _gameValueService.SetCameraZoomDistance(1.66f);
             _gameValueService.SetZCameraPosition(_gameValueService.GetZCameraPosition() + 2);
             _isTacticalCameraEnabled = true;
@@ -93,6 +94,7 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
             _gameValueService.EnableAutoCameraAngleAdjustment();
             _gameValueService.EnableCollisionZoomAdjustment();
             _gameValueService.EnableZoom();
+            _gameValueService.EnableCenteringCameraBehindCharacter();
             _isTacticalCameraEnabled = false;
             OnTacticalCameraStateChanged(false);
         }

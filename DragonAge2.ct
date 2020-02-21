@@ -114,9 +114,24 @@ fld st(0)
 </AssemblerScript>
     </CheatEntry>
     <CheatEntry>
+      <ID>265</ID>
+      <Description>"Disable centering camera behind character"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+DragonAge2.exe+8415F:
+jmp DragonAge2.exe+842EE
+nop
+
+[DISABLE]
+DragonAge2.exe+8415F:
+je DragonAge2.exe+842EE
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
       <ID>8</ID>
       <Description>"Camera distance"</Description>
-      <LastState Value="0.1111111641" RealAddress="813103A4"/>
+      <LastState Value="1" RealAddress="8159C2E4"/>
       <VariableType>Float</VariableType>
       <Address>00d54494</Address>
       <Offsets>
@@ -128,7 +143,7 @@ fld st(0)
     <CheatEntry>
       <ID>108</ID>
       <Description>"Camera distance diff"</Description>
-      <LastState Value="0" RealAddress="81310114"/>
+      <LastState Value="0" RealAddress="8159ABE4"/>
       <VariableType>Float</VariableType>
       <Address>d54494</Address>
       <Offsets>
@@ -141,7 +156,7 @@ fld st(0)
     <CheatEntry>
       <ID>58</ID>
       <Description>"Camera vertical angle"</Description>
-      <LastState Value="1.38386941" RealAddress="813632B8"/>
+      <LastState Value="1.032029629" RealAddress="8159C078"/>
       <VariableType>Float</VariableType>
       <Address>00d54494</Address>
       <Offsets>
@@ -156,7 +171,7 @@ fld st(0)
     <CheatEntry>
       <ID>63</ID>
       <Description>"Camera horizontal angle"</Description>
-      <LastState Value="4.65514946" RealAddress="813100FC"/>
+      <LastState Value="1.961417556" RealAddress="8159ABCC"/>
       <VariableType>Float</VariableType>
       <Address>00d54494</Address>
       <Offsets>
@@ -169,7 +184,7 @@ fld st(0)
     <CheatEntry>
       <ID>78</ID>
       <Description>"Camera Y"</Description>
-      <LastState Value="-0.2420941591" RealAddress="81310414"/>
+      <LastState Value="-117.3383408" RealAddress="8159C354"/>
       <VariableType>Float</VariableType>
       <Address>00d54494</Address>
       <Offsets>
@@ -185,7 +200,7 @@ fld st(0)
     <CheatEntry>
       <ID>79</ID>
       <Description>"Camera X"</Description>
-      <LastState Value="-37.55680847" RealAddress="81310410"/>
+      <LastState Value="-6.270820618" RealAddress="8159C350"/>
       <VariableType>Float</VariableType>
       <Address>00d54494</Address>
       <Offsets>
@@ -201,7 +216,7 @@ fld st(0)
     <CheatEntry>
       <ID>80</ID>
       <Description>"Camera Z"</Description>
-      <LastState Value="0.3999996781" RealAddress="81310418"/>
+      <LastState Value="-5.615092278" RealAddress="8159C358"/>
       <VariableType>Float</VariableType>
       <Address>00d54494</Address>
       <Offsets>
@@ -217,7 +232,6 @@ fld st(0)
     <CheatEntry>
       <ID>212</ID>
       <Description>"Character Z"</Description>
-      <LastState Value="0.099999547" RealAddress="8CED75D8"/>
       <VariableType>Float</VariableType>
       <Address>00d6261c</Address>
       <Offsets>
@@ -252,7 +266,7 @@ fld st(0)
     <CheatEntry>
       <ID>242</ID>
       <Description>"Is in menu?"</Description>
-      <LastState Value="0" RealAddress="80F2BB6C"/>
+      <LastState Value="0" RealAddress="80F2BA8C"/>
       <VariableType>4 Bytes</VariableType>
       <Address>00d54494</Address>
       <Offsets>
@@ -298,6 +312,25 @@ fld st(0)
       <LastState Value="1" RealAddress="00D62D54"/>
       <VariableType>4 Bytes</VariableType>
       <Address>DragonAge2.exe+962D54</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>264</ID>
+      <Description>"Slot 2 skill cooldown"</Description>
+      <LastState Value="0" RealAddress="8DC15BC0"/>
+      <VariableType>Float</VariableType>
+      <Address>DragonAge2.exe+954494</Address>
+      <Offsets>
+        <Offset>b0</Offset>
+        <Offset>1bc</Offset>
+        <Offset>40</Offset>
+        <Offset>60</Offset>
+        <Offset>22c</Offset>
+        <Offset>810</Offset>
+        <Offset>0</Offset>
+        <Offset>24c</Offset>
+        <Offset>80</Offset>
+        <Offset>100</Offset>
+      </Offsets>
     </CheatEntry>
   </CheatEntries>
   <CheatCodes>
@@ -620,6 +653,11 @@ end
 --TRAINERGENERATORSTOP--
 </LuaScript>
   <DisassemblerComments>
+    <DisassemblerComment>
+      <Address>"DragonAge2.exe"+48397</Address>
+      <Comment>push horizontal angle to st(0)
+</Comment>
+    </DisassemblerComment>
     <DisassemblerComment>
       <Address>"DragonAge2.exe"+48445</Address>
       <Comment>set x pointer

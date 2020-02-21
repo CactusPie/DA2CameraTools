@@ -275,5 +275,33 @@ namespace DragonAge2CameraTools.GameManagement
             // Writes: fldz
             _processFunctionsService.WriteMemoryBytes(_processHandle, zoomCodeAddress, new byte[] { 0xD9, 0xEE });
         }
+
+        /// <inheritdoc/>>
+        public void EnableCenteringCameraBehindCharacter()
+        {
+            
+            int centeringCameraBehindCharacterCodeAddress = _addressFinder.GetCenteringCameraBehindCharacterCodeAddress();
+            // Writes: je 0x004842EE
+            _processFunctionsService.WriteMemoryBytes
+            (
+                _processHandle, 
+                centeringCameraBehindCharacterCodeAddress, 
+                new byte[] { 0x0F, 0x84, 0x89, 0x01, 0x00, 0x00 }
+            );
+        }
+        
+        /// <inheritdoc/>>
+        public void DisableCenteringCameraBehindCharacter()
+        {
+            
+            int centeringCameraBehindCharacterCodeAddress = _addressFinder.GetCenteringCameraBehindCharacterCodeAddress();
+            // Writes: jmp 0x004842EE
+            _processFunctionsService.WriteMemoryBytes
+            (
+                _processHandle, 
+                centeringCameraBehindCharacterCodeAddress, 
+                new byte[] { 0xE9, 0x8A, 0x01, 0x00, 0x00, 0x90 }
+            );
+        }
     }
 }

@@ -117,6 +117,11 @@ namespace DragonAge2CameraTools.GameManagement
             return _baseAddress + 0x84339;
         }
         
+        public int GetCenteringCameraBehindCharacterCodeAddress()
+        {
+            return _baseAddress + 0x8415F;
+        }
+        
         /// <summary>
         /// Since the addresses of values in memory are usually not constant we need to retrieve them
         /// every time based on pointers. This allows us to quickly follow multiple pointers

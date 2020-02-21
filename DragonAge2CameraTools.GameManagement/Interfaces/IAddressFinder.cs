@@ -18,5 +18,6 @@
         int GetUnlimitedZoomCodeAddress();
         int GetAutoCameraAngleAdjustmentCodeAddress();
         int GetZoomStateCodeAddress();
+        int GetCenteringCameraBehindCharacterCodeAddress();
     }
 }

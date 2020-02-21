@@ -34,7 +34,7 @@ namespace DragonAge2CameraTools.GameManagement.Interfaces
         
         /// <summary>
         /// Gets the value of camera distance, where 1 is the closest zoom
-        /// and -1 is the furthest zoom. Disabling unlimited zoom allows
+        /// and -1 is the furthest zoom. Enabling unlimited zoom allows
         /// to go below -1 
         /// </summary>
         float GetCameraZoomDistance();
@@ -63,7 +63,7 @@ namespace DragonAge2CameraTools.GameManagement.Interfaces
         
         /// <summary>
         /// Changes current camera zoom distance where 1 is the closes zoom the game allows and -1 is the furthest
-        /// zoom the game allows. Allows to go below -1 if free camera is enabled
+        /// zoom the game allows. Allows to go below -1 if unlimited zoom is enabled
         /// </summary>
         /// <param name="newZoomDistance">New zoom distance to set</param>
         void SetCameraZoomDistance(float newZoomDistance);
@@ -136,7 +136,7 @@ namespace DragonAge2CameraTools.GameManagement.Interfaces
         void DisableCollisionZoomAdjustment();
         
         /// <summary>
-        /// Disables the camera angle automatic adjustment. This usually happens when a character is
+        /// Enables the camera angle automatic adjustment. This usually happens when a character is
         /// going down or up the stairs (or changing its Z position in any other way). Normally this is good,
         /// but when the tactical camera is enabled it results in undesirable behavior.
         /// </summary>
@@ -157,5 +157,17 @@ namespace DragonAge2CameraTools.GameManagement.Interfaces
         /// Re-enables default camera zoom handling
         /// </summary>
         void DisableZoom();
+
+        /// <summary>
+        /// Enables automatic centering of camera behind the character. This happens
+        /// for instance after executing backstab
+        /// </summary>
+        void EnableCenteringCameraBehindCharacter();
+        
+        /// <summary>
+        /// Disables automatic centering of camera behind the character. This happens
+        /// for instance after executing backstab and conflicts with tactical view
+        /// </summary>
+        void DisableCenteringCameraBehindCharacter();
     }
 }

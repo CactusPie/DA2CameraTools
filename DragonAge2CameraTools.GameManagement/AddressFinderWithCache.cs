@@ -19,7 +19,8 @@ namespace DragonAge2CameraTools.GameManagement
         private int _dialogueFlagAddress;
         private int _menuOrDialogueFlagAddress;
         private int _saveGameLoadedFlagAddress;
-        private int _zoomStateAddress;
+        private int _zoomStateCodeAddress;
+        private int _centeringCameraBehindCharacterCodeAddress;
 
         public AddressFinderWithCache(IAddressFinder addressFinder)
         {
@@ -103,7 +104,12 @@ namespace DragonAge2CameraTools.GameManagement
 
         public int GetZoomStateCodeAddress()
         {
-            return _zoomStateAddress;
+            return _zoomStateCodeAddress;
+        }
+
+        public int GetCenteringCameraBehindCharacterCodeAddress()
+        {
+            return _centeringCameraBehindCharacterCodeAddress;
         }
 
         private void RetrieveAddresses(IAddressFinder addressFinder)
@@ -123,7 +129,8 @@ namespace DragonAge2CameraTools.GameManagement
             _saveGameLoadedFlagAddress = addressFinder.GetSaveGameLoadedFlagAddress();
             _dialogueFlagAddress = addressFinder.GetDialogueFlagAddress();
             _menuOrDialogueFlagAddress = addressFinder.GetMenuOrDialogueFlagAddress();
-            _zoomStateAddress = addressFinder.GetZoomStateCodeAddress();
+            _zoomStateCodeAddress = addressFinder.GetZoomStateCodeAddress();
+            _centeringCameraBehindCharacterCodeAddress = addressFinder.GetCenteringCameraBehindCharacterCodeAddress();
         }
     }
 }
