@@ -279,7 +279,6 @@ namespace DragonAge2CameraTools.GameManagement
         /// <inheritdoc/>>
         public void EnableCenteringCameraBehindCharacter()
         {
-            
             int centeringCameraBehindCharacterCodeAddress = _addressFinder.GetCenteringCameraBehindCharacterCodeAddress();
             // Writes: je 0x004842EE
             _processFunctionsService.WriteMemoryBytes
@@ -293,7 +292,6 @@ namespace DragonAge2CameraTools.GameManagement
         /// <inheritdoc/>>
         public void DisableCenteringCameraBehindCharacter()
         {
-            
             int centeringCameraBehindCharacterCodeAddress = _addressFinder.GetCenteringCameraBehindCharacterCodeAddress();
             // Writes: jmp 0x004842EE
             _processFunctionsService.WriteMemoryBytes
