@@ -10,7 +10,7 @@ namespace DragonAge2CameraTools.IoC
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ProcessFunctionsServiceService>().As<IProcessFunctionsService>().SingleInstance();
+            builder.RegisterType<ProcessFunctionsService>().As<IProcessFunctionsService>().SingleInstance();
             builder.RegisterType<ActionLoopServiceFactory>().As<IActionLoopServiceFactory>().SingleInstance();
             builder.RegisterType<ActiveWindowService>().As<IActiveWindowService>().SingleInstance();
         }

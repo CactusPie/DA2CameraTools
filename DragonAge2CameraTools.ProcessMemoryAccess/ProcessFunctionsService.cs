@@ -4,7 +4,7 @@ using DragonAge2CameraTools.ProcessMemoryAccess.Interfaces;
 
 namespace DragonAge2CameraTools.ProcessMemoryAccess
 {
-    public class ProcessFunctionsServiceService : IProcessFunctionsService
+    public class ProcessFunctionsService : IProcessFunctionsService
     {
         [DllImport("kernel32.dll")]
         private static extern IntPtr OpenProcess(ProcessAccessFlags dwDesiredAccess, [MarshalAs(UnmanagedType.Bool)] bool bInheritHandle, int dwProcessId);
