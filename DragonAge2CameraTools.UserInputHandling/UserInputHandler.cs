@@ -20,10 +20,12 @@ namespace DragonAge2CameraTools.UserInputHandling
         private readonly IKeyMapper _keyMapper;
         private readonly IKeyHandler _keyHandler;
         
-        public UserInputHandler(
+        public UserInputHandler
+        (
             IHotkeyConditionService hotkeyConditionService, 
             IKeyMapper keyMapper,
-            IKeyHandler keyHandler)
+            IKeyHandler keyHandler
+        )
         {
             _hotkeyConditionService = hotkeyConditionService;
             _keyMapper = keyMapper;

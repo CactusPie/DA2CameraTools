@@ -1,4 +1,5 @@
 ﻿using DragonAge2CameraTools.GameManagement.Factories.Interfaces;
+using DragonAge2CameraTools.GameManagement.FunctionHooking.Interfaces;
 using DragonAge2CameraTools.GameManagement.Interfaces;
 using DragonAge2CameraTools.UserInputHandling.Factories.Interfaces;
 using DragonAge2CameraTools.UserInputHandling.KeyHandlers.Data;
@@ -13,27 +14,35 @@ namespace DragonAge2CameraTools.ViewLogic.Factories
         private readonly IUserInputHandlerFactory _userInputHandlerFactory;
         private readonly ICodeInjectionReadinessChecker _codeInjectionReadinessChecker;
         private readonly ITacticalCameraKeyHandlerFactory _tacticalCameraKeyHandlerFactory;
+        private readonly IGameFunctionHookServiceFactory _gameFunctionHookServiceFactory;
 
-        public TacticalCameraServiceFactory(
+        public TacticalCameraServiceFactory
+        (
             ICameraToolsFactory cameraToolsFactory, 
             IUserInputHandlerFactory userInputHandlerFactory,
             ICodeInjectionReadinessChecker codeInjectionReadinessChecker,
-            ITacticalCameraKeyHandlerFactory tacticalCameraKeyHandlerFactory)
+            ITacticalCameraKeyHandlerFactory tacticalCameraKeyHandlerFactory,
+            IGameFunctionHookServiceFactory gameFunctionHookServiceFactory
+        )
         {
             _cameraToolsFactory = cameraToolsFactory;
             _userInputHandlerFactory = userInputHandlerFactory;
             _codeInjectionReadinessChecker = codeInjectionReadinessChecker;
             _tacticalCameraKeyHandlerFactory = tacticalCameraKeyHandlerFactory;
+            _gameFunctionHookServiceFactory = gameFunctionHookServiceFactory;
         }
 
         public ITacticalCameraService CreateTacticalCameraService(TacticalCameraSettings tacticalCameraSettings)
         {
-            return new TacticalCameraService(
+            return new TacticalCameraService
+            (
                 _cameraToolsFactory, 
                 _tacticalCameraKeyHandlerFactory,
                 _userInputHandlerFactory, 
                 _codeInjectionReadinessChecker, 
-                tacticalCameraSettings);
+                _gameFunctionHookServiceFactory,
+                tacticalCameraSettings
+            );
         }
     }
 }

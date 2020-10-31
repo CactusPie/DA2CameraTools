@@ -19,5 +19,9 @@
         int GetAutoCameraAngleAdjustmentCodeAddress();
         int GetZoomStateCodeAddress();
         int GetCenteringCameraBehindCharacterCodeAddress();
+        int GetMenuOrDialogueEnteredCodeAddress();
+        int GetMenuOrDialogueExitedCodeAddress();
+        int GetLoadingScreenEnteredCodeAddress();
+        int GetLoadingScreenExitedCodeAddress();
     }
 }

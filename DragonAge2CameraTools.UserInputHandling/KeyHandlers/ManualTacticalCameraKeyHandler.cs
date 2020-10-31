@@ -10,23 +10,11 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
     /// <inheritdoc/>>
     public class ManualTacticalCameraKeyHandler : IManualTacticalCameraKeyHandler
     {
-        private bool _isTacticalCameraEnabled = false;
-        private bool _isHandlerEnabled = true;
-        
+        public bool IsTacticalCameraEnabled { get; private set; }
+
         public event TacticalCameraStateChangedHandler TacticalCameraStateChanged; 
         
-        public bool IsHandlerEnabled
-        {
-            get => _isHandlerEnabled;
-            set
-            {
-                if (!value && _isTacticalCameraEnabled)
-                {
-                    DisableTacticalCamera();
-                }
-                _isHandlerEnabled = value;
-            }
-        }
+        public bool IsHandlerEnabled { get; set; } = true;
 
         private readonly IGameValueService _gameValueService;
         private readonly IEnumerable<UserInputKey> _tacticalCameraToggleKeys;
@@ -39,14 +27,14 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
         
         public InputResult OnKeyDown(UserInputKey keyCode, ModifierKeys modifiers)
         {
-            if (!_isHandlerEnabled)
+            if (!IsHandlerEnabled)
             {
                 return InputResult.Continue;
             }
             
             if (_tacticalCameraToggleKeys.Contains(keyCode))
             {
-                if (!_isTacticalCameraEnabled && IsHandlerEnabled)
+                if (!IsTacticalCameraEnabled && IsHandlerEnabled)
                 {
                     EnableTacticalCamera();
                 }
@@ -66,7 +54,7 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
 
         public void EnableTacticalCamera()
         {
-            if (_isTacticalCameraEnabled)
+            if (IsTacticalCameraEnabled)
             {
                 return;
             }
@@ -78,13 +66,13 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
             _gameValueService.DisableCenteringCameraBehindCharacter();
             _gameValueService.SetCameraZoomDistance(1.66f);
             _gameValueService.SetZCameraPosition(_gameValueService.GetZCameraPosition() + 2);
-            _isTacticalCameraEnabled = true;
+            IsTacticalCameraEnabled = true;
             OnTacticalCameraStateChanged(true);
         }
 
         public void DisableTacticalCamera()
         {
-            if (!_isTacticalCameraEnabled)
+            if (!IsTacticalCameraEnabled)
             {
                 return;
             }
@@ -95,7 +83,7 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
             _gameValueService.EnableCollisionZoomAdjustment();
             _gameValueService.EnableZoom();
             _gameValueService.EnableCenteringCameraBehindCharacter();
-            _isTacticalCameraEnabled = false;
+            IsTacticalCameraEnabled = false;
             OnTacticalCameraStateChanged(false);
         }
         

@@ -51,7 +51,8 @@ namespace DragonAge2CameraTools.GameManagement
             int xCameraAddress = _addressFinder.GetXCameraAddress();
             var bytes = _processFunctionsService.ReadMemoryBytes(_processHandle, xCameraAddress, bytesToRead);
             
-            var result = new XYCameraPosition(
+            var result = new XYCameraPosition
+            (
                 BitConverter.ToSingle(bytes, 0), 
                 BitConverter.ToSingle(bytes, sizeof(float))
             );
@@ -66,7 +67,8 @@ namespace DragonAge2CameraTools.GameManagement
             int xCameraAddress = _addressFinder.GetXCameraAddress();
             var bytes = _processFunctionsService.ReadMemoryBytes(_processHandle, xCameraAddress, bytesToRead);
             
-            var result = new XYZCameraPosition(
+            var result = new XYZCameraPosition
+            (
                 BitConverter.ToSingle(bytes, 0), 
                 BitConverter.ToSingle(bytes, sizeof(float)),
                 BitConverter.ToSingle(bytes, sizeof(float) * 2)

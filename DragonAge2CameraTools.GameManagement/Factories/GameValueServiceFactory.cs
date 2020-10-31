@@ -17,10 +17,10 @@ namespace DragonAge2CameraTools.GameManagement.Factories
             _processFunctionsService = processFunctionsService;
         }
         
-        public IGameValueService CreateGameValueService(IntPtr processHandle, Process process)
+        public IGameValueService CreateGameValueService(Process process)
         {
             IAddressFinder addressFinder = _addressFinderFactory.CreateAddressFinder(process);
-            return new GameValueService(addressFinder, _processFunctionsService, processHandle);
+            return new GameValueService(addressFinder, _processFunctionsService, process.Handle);
         }
     }
 }

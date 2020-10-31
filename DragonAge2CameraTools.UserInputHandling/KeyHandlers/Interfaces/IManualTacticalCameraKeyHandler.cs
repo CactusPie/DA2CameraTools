@@ -5,6 +5,7 @@
     /// </summary>
     public interface IManualTacticalCameraKeyHandler : ITacticalCameraStateHandler
     {
+        bool IsTacticalCameraEnabled { get; }
         void EnableTacticalCamera();
         void DisableTacticalCamera();
     }

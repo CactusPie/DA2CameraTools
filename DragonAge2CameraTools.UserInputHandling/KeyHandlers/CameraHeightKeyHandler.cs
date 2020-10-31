@@ -18,33 +18,21 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
     {
         private bool _isCameraMovingDown;
         private bool _isCameraMovingUp;
-        private bool _isHandlerEnabled;
-        
-        public float CameraMovementOffset { get; set; }
-        
-        public bool IsHandlerEnabled
-        {
-            get => _isHandlerEnabled;
-            set
-            {
-                if (!value)
-                {
-                    StopCurrentlyRunningKeyFunction();
-                }
 
-                _isHandlerEnabled = value;
-            }
-        }
-        
+        public float CameraMovementOffset { get; set; }
+        public bool IsHandlerEnabled { get; set; }
+
         private readonly IGameValueService _gameValueService;
         private readonly IActionLoopService _actionLoopService;
         private readonly CameraHeightKeys _cameraHeightKeys;
 
-        public CameraHeightKeyHandler(
+        public CameraHeightKeyHandler
+        (
             IGameValueService gameValueService, 
             IActionLoopServiceFactory actionLoopServiceFactory, 
             CameraHeightKeys cameraHeightKeys, 
-            float cameraMovementOffset)
+            float cameraMovementOffset
+        )
         {
             _gameValueService = gameValueService;
             _actionLoopService = actionLoopServiceFactory.CreateActionLoopService();
@@ -111,7 +99,7 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
 
         public InputResult OnKeyUp(UserInputKey keyCode)
         {
-            if (!_isHandlerEnabled)
+            if (!IsHandlerEnabled)
             {
                 return InputResult.Continue;
             }
@@ -170,10 +158,8 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
         
         public void Dispose()
         {
-            if (_actionLoopService.IsLoopingAction)
-            {
-                _actionLoopService.StopLoopingAction();
-            }
+            StopCurrentlyRunningKeyFunction();
+            _actionLoopService.Dispose();
         }
     }
 }

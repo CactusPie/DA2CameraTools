@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using DragonAge2CameraTools.GameManagement.Factories.Interfaces;
 using DragonAge2CameraTools.GameManagement.Interfaces;
 using DragonAge2CameraTools.UserInputHandling.Enums;
@@ -18,9 +20,8 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
     {
         private readonly IGameValueService _gameValueService;
         private readonly IKeyAndMouseEventHandlerFactory _keyAndMouseEventHandlerFactory;
-        private readonly ILoadingScreenMonitorFactory _loadingScreenMonitorFactory;
         private readonly TacticalCameraSettings _tacticalCameraSettings;
-        private ILoadingScreenMonitor _loadingScreenMonitor;
+        private IGameEventService _gameEventService;
         private IKeyHandler[] _keyHandlers;
         
         public bool IsHandlerEnabled
@@ -40,15 +41,18 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
             }
         }
 
-        public TacticalCameraKeyHandler(
+        public TacticalCameraKeyHandler
+        (
             IKeyAndMouseEventHandlerFactory keyAndMouseEventHandlerFactory,
-            ILoadingScreenMonitorFactory loadingScreenMonitorFactory,
+            IGameEventServiceFactory gameEventServiceFactory,
             IGameValueService gameValueService, 
-            TacticalCameraSettings tacticalCameraSettings)
+            Process gameProcess,
+            TacticalCameraSettings tacticalCameraSettings
+        )
         {
             _gameValueService = gameValueService;
             _keyAndMouseEventHandlerFactory = keyAndMouseEventHandlerFactory;
-            _loadingScreenMonitorFactory = loadingScreenMonitorFactory;
+            _gameEventService = gameEventServiceFactory.CreateGameEventService(gameProcess);
             _tacticalCameraSettings = tacticalCameraSettings;
             
             CreateKeyAndMouseHandlers();
@@ -180,7 +184,8 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
 
         private IManualTacticalCameraKeyHandler CreateManualTacticalCameraHandler(TacticalCameraKeyBindings keyBindings)
         {
-            return  _keyAndMouseEventHandlerFactory.CreateManualTacticalCameraHandler(
+            return  _keyAndMouseEventHandlerFactory.CreateManualTacticalCameraHandler
+            (
                 _gameValueService,
                 keyBindings.TacticalCameraToggleKeys
             );
@@ -188,14 +193,17 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
 
         private IAutoTacticalCameraKeyHandler CreateAutoTacticalCameraHandler(TacticalCameraKeyBindings keyBindings)
         {
-            return _keyAndMouseEventHandlerFactory.CreateAutoTacticalCameraHandler(_gameValueService,
+            return _keyAndMouseEventHandlerFactory.CreateAutoTacticalCameraHandler
+            (
+                _gameValueService,
                 new AutoTacticalCameraKeys
                 {
                     ZoomInKeys = keyBindings.ZoomInKeys,
                     ZoomOutKeys = keyBindings.ZoomOutKeys,
                     ToggleKeys = keyBindings.TacticalCameraToggleKeys
                 }, 
-                _tacticalCameraSettings.AutomaticTacticalCameraThreshold);
+                _tacticalCameraSettings.AutomaticTacticalCameraThreshold
+            );
         }
 
         /// <summary>
@@ -208,48 +216,89 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
         /// <param name="tacticalCameraStateHandler">Handler for which we are handling the TacticalCameraStateChanged event</param>
         /// <param name="conflictingHandler">(optional) Handler that needs to be disabled while tacticalCameraStateHandler is enabled</param>
         /// <param name="relatedHandlers">Handlers that need to be enabled while tacticalCameraStateHandler is enabled</param>
-        private static void AssignCameraStateHandlerRelations(
-                ITacticalCameraStateHandler tacticalCameraStateHandler, 
-                IKeyHandler conflictingHandler,
-                params IKeyHandler[] relatedHandlers)
+        private static void AssignCameraStateHandlerRelations
+        (
+            ITacticalCameraStateHandler tacticalCameraStateHandler, 
+            IKeyHandler conflictingHandler,
+            params IKeyHandler[] relatedHandlers
+        )
         {
             tacticalCameraStateHandler.TacticalCameraStateChanged += enabled =>
             {
                 foreach (IKeyHandler relatedHandler in relatedHandlers)
                 {
                     relatedHandler.IsHandlerEnabled = enabled;
+                    if (!enabled)
+                    {
+                        relatedHandler.StopCurrentlyRunningKeyFunction();
+                    }
                 }
 
                 if (conflictingHandler != null)
                 {
                     conflictingHandler.IsHandlerEnabled = !enabled;
+                    if (!enabled)
+                    {
+                        conflictingHandler.StopCurrentlyRunningKeyFunction();
+                    }
                 }
             };
         }
 
-        private void InitializeLoadingScreenMonitor(
+        private void InitializeLoadingScreenMonitor
+        (
             IManualTacticalCameraKeyHandler manualTacticalCameraHandler, 
             IAutoTacticalCameraKeyHandler autoTacticalCameraHandler,
             IKeyHandler cameraMovementHandler,
-            IKeyHandler cameraHeightHandler)
+            IKeyHandler cameraHeightHandler
+        )
         {
-            _loadingScreenMonitor = _loadingScreenMonitorFactory.CreateLoadingScreenMonitor(_gameValueService);
-            _loadingScreenMonitor.EnteredLoadingScreen += (sender, eventArgs) =>
+            var shouldSwitchCameraBackOn = false;
+            
+            _gameEventService.EnteredLoadingScreen += (sender, args) =>
             {
+                shouldSwitchCameraBackOn = false;
                 if (manualTacticalCameraHandler != null)
                 {
                     manualTacticalCameraHandler.IsHandlerEnabled = false;
+                    manualTacticalCameraHandler.DisableTacticalCamera();
                 }
 
                 if (autoTacticalCameraHandler != null)
                 {
                     autoTacticalCameraHandler.IsHandlerEnabled = false;
+                    autoTacticalCameraHandler.DisableTacticalCamera();
                 }
+                
                 cameraMovementHandler.IsHandlerEnabled = false;
                 cameraHeightHandler.IsHandlerEnabled = false;
+                cameraMovementHandler.StopCurrentlyRunningKeyFunction();
+                cameraHeightHandler.StopCurrentlyRunningKeyFunction();
             };
             
-            _loadingScreenMonitor.ExitLoadingScreen += (sender, eventArgs) =>
+            _gameEventService.EnteredMenuOrDialogue += (sender, args) =>
+            {
+                shouldSwitchCameraBackOn = false;
+                
+                if (manualTacticalCameraHandler != null)
+                {
+                    shouldSwitchCameraBackOn = manualTacticalCameraHandler.IsTacticalCameraEnabled;
+                    manualTacticalCameraHandler.IsHandlerEnabled = false;
+                }
+                
+                if (autoTacticalCameraHandler != null)
+                {
+                    shouldSwitchCameraBackOn = shouldSwitchCameraBackOn || autoTacticalCameraHandler.IsTacticalCameraEnabled;
+                    autoTacticalCameraHandler.IsHandlerEnabled = false;
+                }
+                
+                cameraMovementHandler.IsHandlerEnabled = false;
+                cameraHeightHandler.IsHandlerEnabled = false;
+                cameraMovementHandler.StopCurrentlyRunningKeyFunction();
+                cameraHeightHandler.StopCurrentlyRunningKeyFunction();
+            };
+
+            void ExitedEventHandler(object sender, EventArgs args)
             {
                 if (manualTacticalCameraHandler != null)
                 {
@@ -260,17 +309,26 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
                 {
                     autoTacticalCameraHandler.IsHandlerEnabled = true;
                 }
-            };
 
-            _loadingScreenMonitor.StartMonitoringLoadingScreen();
+                if (shouldSwitchCameraBackOn)
+                {
+                    cameraMovementHandler.IsHandlerEnabled = true;
+                    cameraHeightHandler.IsHandlerEnabled = true;
+                }
+            }
+
+            _gameEventService.ExitedLoadingScreen += ExitedEventHandler;
+            _gameEventService.ExitedMenuOrDialogue += ExitedEventHandler;
+
+            _gameEventService.StartMonitoringGameEvents();
         }
 
         public void Dispose()
         {
-            if (_loadingScreenMonitor != null)
+            if (_gameEventService != null)
             {
-                _loadingScreenMonitor.Dispose();
-                _loadingScreenMonitor = null;
+                _gameEventService.Dispose();
+                _gameEventService = null;
             }
             
             if (_keyHandlers == null)

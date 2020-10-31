@@ -131,7 +131,7 @@ je DragonAge2.exe+842EE
     <CheatEntry>
       <ID>8</ID>
       <Description>"Camera distance"</Description>
-      <LastState Value="1" RealAddress="8159C2E4"/>
+      <LastState Value="0.1111111641" RealAddress="810FBAB4"/>
       <VariableType>Float</VariableType>
       <Address>00d54494</Address>
       <Offsets>
@@ -143,7 +143,7 @@ je DragonAge2.exe+842EE
     <CheatEntry>
       <ID>108</ID>
       <Description>"Camera distance diff"</Description>
-      <LastState Value="0" RealAddress="8159ABE4"/>
+      <LastState Value="0" RealAddress="810FB824"/>
       <VariableType>Float</VariableType>
       <Address>d54494</Address>
       <Offsets>
@@ -156,7 +156,7 @@ je DragonAge2.exe+842EE
     <CheatEntry>
       <ID>58</ID>
       <Description>"Camera vertical angle"</Description>
-      <LastState Value="1.032029629" RealAddress="8159C078"/>
+      <LastState Value="1.260030866" RealAddress="81DFD9F8"/>
       <VariableType>Float</VariableType>
       <Address>00d54494</Address>
       <Offsets>
@@ -171,7 +171,7 @@ je DragonAge2.exe+842EE
     <CheatEntry>
       <ID>63</ID>
       <Description>"Camera horizontal angle"</Description>
-      <LastState Value="1.961417556" RealAddress="8159ABCC"/>
+      <LastState Value="3.874204397" RealAddress="810FB80C"/>
       <VariableType>Float</VariableType>
       <Address>00d54494</Address>
       <Offsets>
@@ -184,7 +184,7 @@ je DragonAge2.exe+842EE
     <CheatEntry>
       <ID>78</ID>
       <Description>"Camera Y"</Description>
-      <LastState Value="-117.3383408" RealAddress="8159C354"/>
+      <LastState Value="5.4176507" RealAddress="810FBB24"/>
       <VariableType>Float</VariableType>
       <Address>00d54494</Address>
       <Offsets>
@@ -200,7 +200,7 @@ je DragonAge2.exe+842EE
     <CheatEntry>
       <ID>79</ID>
       <Description>"Camera X"</Description>
-      <LastState Value="-6.270820618" RealAddress="8159C350"/>
+      <LastState Value="11.41967297" RealAddress="810FBB20"/>
       <VariableType>Float</VariableType>
       <Address>00d54494</Address>
       <Offsets>
@@ -216,7 +216,7 @@ je DragonAge2.exe+842EE
     <CheatEntry>
       <ID>80</ID>
       <Description>"Camera Z"</Description>
-      <LastState Value="-5.615092278" RealAddress="8159C358"/>
+      <LastState Value="0.4263700843" RealAddress="810FBB28"/>
       <VariableType>Float</VariableType>
       <Address>00d54494</Address>
       <Offsets>
@@ -232,6 +232,7 @@ je DragonAge2.exe+842EE
     <CheatEntry>
       <ID>212</ID>
       <Description>"Character Z"</Description>
+      <LastState Value="0.1334280819" RealAddress="8818BAD8"/>
       <VariableType>Float</VariableType>
       <Address>00d6261c</Address>
       <Offsets>
@@ -257,6 +258,20 @@ je DragonAge2.exe+842EE
       </Offsets>
     </CheatEntry>
     <CheatEntry>
+      <ID>3</ID>
+      <Description>"Is loading screen? 2"</Description>
+      <LastState Value="0" RealAddress="81478370"/>
+      <VariableType>Byte</VariableType>
+      <Address>"DragonAge2.exe"+00978B0C</Address>
+      <Offsets>
+        <Offset>110</Offset>
+        <Offset>10</Offset>
+        <Offset>70</Offset>
+        <Offset>1BC</Offset>
+        <Offset>40</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
       <ID>238</ID>
       <Description>"Is game paused?"</Description>
       <LastState Value="0" RealAddress="00D4F800"/>
@@ -266,7 +281,7 @@ je DragonAge2.exe+842EE
     <CheatEntry>
       <ID>242</ID>
       <Description>"Is in menu?"</Description>
-      <LastState Value="0" RealAddress="80F2BA8C"/>
+      <LastState Value="0" RealAddress="80F2BA5C"/>
       <VariableType>4 Bytes</VariableType>
       <Address>00d54494</Address>
       <Offsets>
@@ -316,7 +331,7 @@ je DragonAge2.exe+842EE
     <CheatEntry>
       <ID>264</ID>
       <Description>"Slot 2 skill cooldown"</Description>
-      <LastState Value="0" RealAddress="8DC15BC0"/>
+      <LastState Value="0" RealAddress="8A125940"/>
       <VariableType>Float</VariableType>
       <Address>DragonAge2.exe+954494</Address>
       <Offsets>

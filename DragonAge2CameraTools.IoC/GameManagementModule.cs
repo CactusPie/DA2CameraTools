@@ -1,8 +1,12 @@
-﻿using Autofac;
+﻿using System.IO;
+using Autofac;
 using DragonAge2CameraTools.GameManagement;
 using DragonAge2CameraTools.GameManagement.Factories;
 using DragonAge2CameraTools.GameManagement.Factories.Interfaces;
+using DragonAge2CameraTools.GameManagement.FunctionHooking;
+using DragonAge2CameraTools.GameManagement.FunctionHooking.Interfaces;
 using DragonAge2CameraTools.GameManagement.Interfaces;
+using DragonAge2CameraTools.ProcessMemoryAccess.Injection.Interfaces;
 using DragonAge2CameraTools.ProcessMemoryAccess.Interfaces;
 
 namespace DragonAge2CameraTools.IoC
@@ -22,7 +26,7 @@ namespace DragonAge2CameraTools.IoC
                 )
             ).As<IAddressFinderFactory>().SingleInstance();
             
-            builder.RegisterType<LoadingScreenMonitorFactory>().As<ILoadingScreenMonitorFactory>().SingleInstance();
+            builder.RegisterType<GameEventServiceFactory>().As<IGameEventServiceFactory>().SingleInstance();
             builder.RegisterType<CameraToolsFactory>().As<ICameraToolsFactory>().SingleInstance();
             
             builder.Register
@@ -33,6 +37,20 @@ namespace DragonAge2CameraTools.IoC
                     x.Resolve<AddressFinderFactory>()
                 )
             ).As<ICodeInjectionReadinessChecker>();
+
+            // Source code for the DLL is located in \InterceptionLibrary\DragonAge2InterceptionLibrary\DragonAge2InterceptionLibrary.sln
+            string dllPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, @"DragonAge2InterceptionLibrary.dll");
+            
+            builder.Register
+            (x => new GameFunctionHookServiceFactory
+                (
+                    x.Resolve<IDllInjector>(),
+                    x.Resolve<IProcessFunctionsService>(),
+                    x.Resolve<IDllFunctionFinder>(),
+                    x.Resolve<IAddressFinderFactory>(),
+                    dllPath
+                )
+            ).As<IGameFunctionHookServiceFactory>().SingleInstance();
         }
     }
 }

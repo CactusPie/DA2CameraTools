@@ -9,31 +9,25 @@ namespace DragonAge2CameraTools.GameManagement.Factories
     {
         private readonly IAddressFinderFactory _addressFinderFactory;
         private readonly IGameValueServiceFactory _gameValueServiceFactory;
-        private readonly ILoadingScreenMonitorFactory _loadingScreenMonitorFactory;
 
-        public CameraToolsFactory(
+        public CameraToolsFactory
+        (
             IAddressFinderFactory addressFinderFactory,
-            IGameValueServiceFactory gameValueServiceFactory,
-            ILoadingScreenMonitorFactory loadingScreenMonitorFactory)
+            IGameValueServiceFactory gameValueServiceFactory
+        )
         {
             _addressFinderFactory = addressFinderFactory;
             _gameValueServiceFactory = gameValueServiceFactory;
-            _loadingScreenMonitorFactory = loadingScreenMonitorFactory;
         }
 
-        public IAddressFinder CreateAddressFinder(Process process)
+        public IAddressFinder CreateAddressFinder(Process gameProcess)
         {
-            return _addressFinderFactory.CreateAddressFinder(process);
+            return _addressFinderFactory.CreateAddressFinder(gameProcess);
         }
 
-        public IGameValueService CreateGameValueService(IntPtr processHandle, Process process)
+        public IGameValueService CreateGameValueService(Process gameProcess)
         {
-            return _gameValueServiceFactory.CreateGameValueService(processHandle, process);
-        }
-
-        public ILoadingScreenMonitor CreateLoadingScreenMonitor(IGameValueService gameValueService)
-        {
-            return _loadingScreenMonitorFactory.CreateLoadingScreenMonitor(gameValueService);
+            return _gameValueServiceFactory.CreateGameValueService(gameProcess);
         }
     }
 }

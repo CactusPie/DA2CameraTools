@@ -38,7 +38,7 @@ namespace DragonAge2CameraTools.UserInputHandling
 
         private bool ShouldHandleHotkeyEvent()
         {
-            return IsDragonAgeWindowActive() && !_gameValueService.IsGameInMenuOrDialogue();
+            return IsDragonAgeWindowActive();
         }
         
         private bool IsDragonAgeWindowActive()

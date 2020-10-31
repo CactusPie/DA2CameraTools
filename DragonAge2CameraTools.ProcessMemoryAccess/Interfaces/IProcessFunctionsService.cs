@@ -1,4 +1,5 @@
 ﻿using System;
+using DragonAge2CameraTools.ProcessMemoryAccess.Enums;
 
 namespace DragonAge2CameraTools.ProcessMemoryAccess.Interfaces
 {
@@ -13,5 +14,6 @@ namespace DragonAge2CameraTools.ProcessMemoryAccess.Interfaces
         void CloseProcessHandle(IntPtr processHandle);
         void WriteMemoryFloat(IntPtr processHandle, int address, float value);
         void WriteMemoryBytes(IntPtr processHandle, int address, byte[] bytesToWrite);
+        void FreeMemory(IntPtr processHandle, IntPtr addressToFree, uint bytesToFree);
     }
 }

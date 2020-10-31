@@ -122,6 +122,26 @@ namespace DragonAge2CameraTools.GameManagement
             return _baseAddress + 0x8415F;
         }
         
+        public int GetMenuOrDialogueEnteredCodeAddress()
+        {
+            return 0x427EB0;
+        }
+
+        public int GetMenuOrDialogueExitedCodeAddress()
+        {
+            return 0x42C130;
+        }
+        
+        public int GetLoadingScreenEnteredCodeAddress()
+        {
+            return 0x470259;
+        }
+        
+        public int GetLoadingScreenExitedCodeAddress()
+        {
+            return 0x49BAD9;
+        }
+        
         /// <summary>
         /// Since the addresses of values in memory are usually not constant we need to retrieve them
         /// every time based on pointers. This allows us to quickly follow multiple pointers

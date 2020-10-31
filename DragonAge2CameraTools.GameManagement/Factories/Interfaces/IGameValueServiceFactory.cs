@@ -6,6 +6,6 @@ namespace DragonAge2CameraTools.GameManagement.Factories.Interfaces
 {
     public interface IGameValueServiceFactory
     {
-        IGameValueService CreateGameValueService(IntPtr processHandle, Process process);
+        IGameValueService CreateGameValueService(Process process);
     }
 }

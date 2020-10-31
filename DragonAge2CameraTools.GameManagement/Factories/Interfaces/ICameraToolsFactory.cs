@@ -6,8 +6,7 @@ namespace DragonAge2CameraTools.GameManagement.Factories.Interfaces
 {
     public interface ICameraToolsFactory
     {
-        IAddressFinder CreateAddressFinder(Process process);
-        IGameValueService CreateGameValueService(IntPtr processHandle, Process process);
-        ILoadingScreenMonitor CreateLoadingScreenMonitor(IGameValueService gameValueService);
+        IAddressFinder CreateAddressFinder(Process gameProcess);
+        IGameValueService CreateGameValueService(Process gameProcess);
     }
 }

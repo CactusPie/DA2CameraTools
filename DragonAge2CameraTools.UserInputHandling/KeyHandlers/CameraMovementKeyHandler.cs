@@ -19,33 +19,21 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
         private bool _isCameraMovingLeft;
         private bool _isCameraMovingRight;
         private bool _isCameraMovingInAnyDirection;
-        private bool _isHandlerEnabled;
-        
+
         public float CameraMovementOffset { get; set; }
-
-        public bool IsHandlerEnabled
-        {
-            get => _isHandlerEnabled;
-            set
-            {
-                if (!value)
-                {
-                    StopCurrentlyRunningKeyFunction();
-                }
-
-                _isHandlerEnabled = value;
-            }
-        }
+        public bool IsHandlerEnabled { get; set; }
 
         private readonly IGameValueService _gameValueService;
         private readonly IActionLoopService _actionLoopService;
         private readonly CameraMovementKeys _cameraMovementKeys;
 
-        public CameraMovementKeyHandler(
+        public CameraMovementKeyHandler
+        (
             IGameValueService gameValueService, 
             IActionLoopServiceFactory actionLoopServiceFactory, 
             CameraMovementKeys cameraMovementKeys, 
-            float cameraMovementOffset)
+            float cameraMovementOffset
+        )
         {
             _gameValueService = gameValueService;
             _actionLoopService = actionLoopServiceFactory.CreateActionLoopService();
@@ -147,8 +135,8 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
         {
             var angleRetrieved = false;
             float horizontalCameraAngle = 0;
-            float horizontalCameraAngleUpDown = 0;
-            float horizontalCameraAngleLeftRight = 0;
+            double horizontalCameraAngleUpDown = 0;
+            double horizontalCameraAngleLeftRight = 0;
 
             if (_isCameraMovingUp)
             {
@@ -156,7 +144,7 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
                 {
                     horizontalCameraAngle = _gameValueService.GetHorizontalCameraAngle();
                     angleRetrieved = true;
-                    horizontalCameraAngleUpDown = (float) (horizontalCameraAngle + Math.PI);
+                    horizontalCameraAngleUpDown = horizontalCameraAngle + Math.PI;
                 }
             }
             else if (_isCameraMovingBack)
@@ -175,7 +163,7 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
                         horizontalCameraAngle = _gameValueService.GetHorizontalCameraAngle();
                     }
                     
-                    horizontalCameraAngleLeftRight = (float) (horizontalCameraAngle + 0.5 * Math.PI);
+                    horizontalCameraAngleLeftRight = horizontalCameraAngle + 0.5 * Math.PI;
                 }
             }
             else if(_isCameraMovingLeft)
@@ -185,7 +173,7 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
                     horizontalCameraAngle = _gameValueService.GetHorizontalCameraAngle();
                 }
                 
-                horizontalCameraAngleLeftRight = (float) (horizontalCameraAngle + 1.5 * Math.PI);
+                horizontalCameraAngleLeftRight = horizontalCameraAngle + 1.5 * Math.PI;
             }
 
             float xOffset = 0, yOffset = 0;
@@ -232,10 +220,7 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
         
         public void Dispose()
         {
-            if (_actionLoopService.IsLoopingAction)
-            {
-                _actionLoopService.StopLoopingAction();
-            }
+            StopCurrentlyRunningKeyFunction();
         }
     }
 }

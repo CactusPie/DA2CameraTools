@@ -50,13 +50,19 @@
     <Compile Include="Factories\Interfaces\IAddressFinderFactory.cs" />
     <Compile Include="Factories\Interfaces\ICameraToolsFactory.cs" />
     <Compile Include="Factories\Interfaces\IGameValueServiceFactory.cs" />
-    <Compile Include="Factories\Interfaces\ILoadingScreenMonitorFactory.cs" />
-    <Compile Include="Factories\LoadingScreenMonitorFactory.cs" />
+    <Compile Include="Factories\Interfaces\IGameEventServiceFactory.cs" />
+    <Compile Include="Factories\GameEventServiceFactory.cs" />
+    <Compile Include="FunctionHooking\Data\AssemblyInstruction.cs" />
+    <Compile Include="FunctionHooking\Enums\HookType.cs" />
+    <Compile Include="FunctionHooking\GameFunctionHookService.cs" />
+    <Compile Include="FunctionHooking\GameFunctionHookServiceFactory.cs" />
+    <Compile Include="FunctionHooking\Interfaces\IGameFunctionHookService.cs" />
+    <Compile Include="FunctionHooking\Interfaces\IGameFunctionHookServiceFactory.cs" />
     <Compile Include="Interfaces\IAddressFinder.cs" />
     <Compile Include="Interfaces\ICodeInjectionReadinessChecker.cs" />
     <Compile Include="Interfaces\IGameValueService.cs" />
-    <Compile Include="Interfaces\ILoadingScreenMonitor.cs" />
-    <Compile Include="LoadingScreenMonitor.cs" />
+    <Compile Include="Interfaces\IGameEventService.cs" />
+    <Compile Include="GameEventService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameValueService.cs" />
   </ItemGroup>

@@ -38,9 +38,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\AllocType.cs" />
+    <Compile Include="Enums\FreeType.cs" />
+    <Compile Include="Enums\ProcessAccessFlags.cs" />
+    <Compile Include="Enums\ThreadPermission.cs" />
+    <Compile Include="Injection\Data\InjectedDllData.cs" />
+    <Compile Include="Injection\DllFunctionFinder.cs" />
+    <Compile Include="Injection\DllInjector.cs" />
+    <Compile Include="Injection\Interfaces\IDllFunctionFinder.cs" />
+    <Compile Include="Injection\Interfaces\IDllInjector.cs" />
     <Compile Include="Interfaces\IProcessFunctionsService.cs" />
     <Compile Include="Interfaces\IActiveWindowService.cs" />
-    <Compile Include="ProcessAccessFlags.cs" />
+    <Compile Include="ProcessFunctions.cs" />
     <Compile Include="ProcessFunctionsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ActiveWindowService.cs" />

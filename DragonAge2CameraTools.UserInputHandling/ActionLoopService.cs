@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using DragonAge2CameraTools.UserInputHandling.Interfaces;
@@ -11,53 +12,39 @@ namespace DragonAge2CameraTools.UserInputHandling
     /// </summary>
     public class ActionLoopService : IActionLoopService
     {
-        private CancellationTokenSource _cancellationTokenSource;
+        private Timer _timer;
         
         public bool IsLoopingAction { get; private set; }
 
-        public void StartLoopingAction(Action action, int millisecondDelayBetweenLoops = 1)
+        public void StartLoopingAction(Action action, int millisecondDelayBetweenLoops)
         {
             if (IsLoopingAction)
             {
-                throw new InvalidOperationException($"{nameof(UserInputHandler)} is already processing keyboard events");
+                throw new InvalidOperationException($"{nameof(ActionLoopService)} is already looping an action");
             }
 
             IsLoopingAction = true;
-            
-            _cancellationTokenSource = new CancellationTokenSource();
-            CancellationToken cancellationToken = _cancellationTokenSource.Token;
-            _ = LoopActionAsynchronously(action, millisecondDelayBetweenLoops, cancellationToken);
+
+            if (_timer == null)
+            {
+                _timer = new Timer(state => action(), null, 0, millisecondDelayBetweenLoops);
+            }
+            else
+            {
+                _timer.Change(0, millisecondDelayBetweenLoops);
+            }
         }
 
         public void StopLoopingAction()
         {
-            if (_cancellationTokenSource != null && !_cancellationTokenSource.IsCancellationRequested)
-            {
-                _cancellationTokenSource.Cancel();
-                _cancellationTokenSource = null;
-            }
+            _timer.Change(Timeout.Infinite, Timeout.Infinite);
             IsLoopingAction = false;
-        }
-
-        private static async Task LoopActionAsynchronously(Action action, int millisecondDelayBetweenLoops, CancellationToken cancellationToken)
-        {
-            try
-            {
-                while (true)
-                {
-                    action();
-                    await Task.Delay(millisecondDelayBetweenLoops, cancellationToken).ConfigureAwait(false);
-                }
-            }
-            catch (TaskCanceledException)
-            {
-            }
         }
 
         public void Dispose()
         {
             StopLoopingAction();
-            _cancellationTokenSource?.Dispose();
+            _timer?.Dispose();
         }
     }
 }

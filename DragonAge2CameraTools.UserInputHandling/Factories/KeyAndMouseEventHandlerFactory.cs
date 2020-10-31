@@ -17,10 +17,12 @@ namespace DragonAge2CameraTools.UserInputHandling.Factories
             _actionLoopServiceFactory = actionLoopServiceFactory;
         }
 
-        public ICameraMovementKeyHandler CreateCameraMovementHandler(
+        public ICameraMovementKeyHandler CreateCameraMovementHandler
+        (
             IGameValueService gameValueService, 
             CameraMovementKeys cameraMovementKeys, 
-            float cameraMovementSpeed)
+            float cameraMovementSpeed
+        )
         {
             return new CameraMovementKeyHandler(gameValueService, _actionLoopServiceFactory, cameraMovementKeys, cameraMovementSpeed);
         }
@@ -30,10 +32,12 @@ namespace DragonAge2CameraTools.UserInputHandling.Factories
             return new CameraHeightKeyHandler(gameValueService, _actionLoopServiceFactory, cameraHeightKeys, cameraMovementOffset);
         }
 
-        public IAutoTacticalCameraKeyHandler CreateAutoTacticalCameraHandler(
+        public IAutoTacticalCameraKeyHandler CreateAutoTacticalCameraHandler
+        (
             IGameValueService gameValueService, 
             AutoTacticalCameraKeys autoTacticalCameraKeys, 
-            float turnOnTacticalCameraThreshold)
+            float turnOnTacticalCameraThreshold
+        )
         {
             return new AutoTacticalCameraKeyHandler(gameValueService, autoTacticalCameraKeys, turnOnTacticalCameraThreshold);
         }

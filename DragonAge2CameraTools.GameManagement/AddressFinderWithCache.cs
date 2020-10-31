@@ -21,6 +21,10 @@ namespace DragonAge2CameraTools.GameManagement
         private int _saveGameLoadedFlagAddress;
         private int _zoomStateCodeAddress;
         private int _centeringCameraBehindCharacterCodeAddress;
+        private int _menuOrDialogueEnteredCodeAddress;
+        private int _menuOrDialogueExitedCodeAddress;
+        private int _loadingScreenEnteredCodeAddress;
+        private int _loadingScreenExitedCodeAddress;
 
         public AddressFinderWithCache(IAddressFinder addressFinder)
         {
@@ -112,6 +116,26 @@ namespace DragonAge2CameraTools.GameManagement
             return _centeringCameraBehindCharacterCodeAddress;
         }
 
+        public int GetMenuOrDialogueEnteredCodeAddress()
+        {
+            return _menuOrDialogueEnteredCodeAddress;
+        }
+
+        public int GetMenuOrDialogueExitedCodeAddress()
+        {
+            return _menuOrDialogueExitedCodeAddress;
+        }
+
+        public int GetLoadingScreenEnteredCodeAddress()
+        {
+            return _loadingScreenEnteredCodeAddress;
+        }
+
+        public int GetLoadingScreenExitedCodeAddress()
+        {
+            return _loadingScreenExitedCodeAddress;
+        }
+
         private void RetrieveAddresses(IAddressFinder addressFinder)
         {
             _xCameraAddress = addressFinder.GetXCameraAddress();
@@ -131,6 +155,10 @@ namespace DragonAge2CameraTools.GameManagement
             _menuOrDialogueFlagAddress = addressFinder.GetMenuOrDialogueFlagAddress();
             _zoomStateCodeAddress = addressFinder.GetZoomStateCodeAddress();
             _centeringCameraBehindCharacterCodeAddress = addressFinder.GetCenteringCameraBehindCharacterCodeAddress();
+            _menuOrDialogueEnteredCodeAddress = addressFinder.GetMenuOrDialogueEnteredCodeAddress();
+            _menuOrDialogueExitedCodeAddress = addressFinder.GetMenuOrDialogueExitedCodeAddress();
+            _loadingScreenEnteredCodeAddress = addressFinder.GetLoadingScreenEnteredCodeAddress();
+            _loadingScreenExitedCodeAddress = addressFinder.GetLoadingScreenExitedCodeAddress();
         }
     }
 }

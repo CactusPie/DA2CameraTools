@@ -12,25 +12,12 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
     public class AutoTacticalCameraKeyHandler : IAutoTacticalCameraKeyHandler
     {
         private readonly float _turnOnTacticalCameraThreshold;
-        private bool _isTacticalCameraEnabled = false;
         private float _turnOffTacticalCameraThreshold = 0f;
-        private bool _isHandlerEnabled = true;
-        
+
         public event TacticalCameraStateChangedHandler TacticalCameraStateChanged; 
         
-        public bool IsHandlerEnabled
-        {
-            get => _isHandlerEnabled;
-            set
-            {
-                if (!value && _isTacticalCameraEnabled)
-                {
-                    DisableTacticalCamera();
-                }
-
-                _isHandlerEnabled = value;
-            }
-        }
+        public bool IsTacticalCameraEnabled { get; private set; }
+        public bool IsHandlerEnabled { get; set; } = true;
 
         private readonly IGameValueService _gameValueService;
         private readonly AutoTacticalCameraKeys _keys;
@@ -52,7 +39,7 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
 
         public InputResult OnKeyDown(UserInputKey keyCode, ModifierKeys modifiers)
         {
-            if (!_isHandlerEnabled)
+            if (!IsHandlerEnabled)
             {
                 return InputResult.Continue;
             }
@@ -63,7 +50,7 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
                 float zoomValue = _gameValueService.GetCameraZoomDistance();
                 float cameraHeight = _gameValueService.GetZCameraPosition();
                 
-                if (!_isTacticalCameraEnabled && zoomValue <= _turnOnTacticalCameraThreshold)
+                if (!IsTacticalCameraEnabled && zoomValue <= _turnOnTacticalCameraThreshold)
                 {
                     _turnOffTacticalCameraThreshold = cameraHeight;
                     EnableTacticalCamera();
@@ -77,7 +64,7 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
             {
                 float cameraHeight = _gameValueService.GetZCameraPosition();
                 
-                if (_isTacticalCameraEnabled)
+                if (IsTacticalCameraEnabled)
                 {
                     if (cameraHeight < _turnOffTacticalCameraThreshold)
                     {
@@ -91,7 +78,7 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
             }
             else if (_keys.ToggleKeys.Contains(keyCode))
             {
-                if (_isTacticalCameraEnabled)
+                if (IsTacticalCameraEnabled)
                 {
                     DisableTacticalCamera();
                     return InputResult.HideFromOtherApplications;
@@ -112,7 +99,7 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
         
         public void EnableTacticalCamera()
         {
-            if (_isTacticalCameraEnabled)
+            if (IsTacticalCameraEnabled)
             {
                 return;
             }
@@ -122,13 +109,13 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
             _gameValueService.DisableCollisionZoomAdjustment();
             _gameValueService.DisableZoom();
             _gameValueService.DisableCenteringCameraBehindCharacter();
-            _isTacticalCameraEnabled = true;
+            IsTacticalCameraEnabled = true;
             OnTacticalCameraStateChanged(true);
         }
 
         public void DisableTacticalCamera()
         {
-            if (!_isTacticalCameraEnabled)
+            if (!IsTacticalCameraEnabled)
             {
                 return;
             }
@@ -145,7 +132,7 @@ namespace DragonAge2CameraTools.UserInputHandling.KeyHandlers
             _gameValueService.EnableCollisionZoomAdjustment();
             _gameValueService.EnableCenteringCameraBehindCharacter();
             _gameValueService.EnableZoom();
-            _isTacticalCameraEnabled = false;
+            IsTacticalCameraEnabled = false;
             OnTacticalCameraStateChanged(false);
         }
 

@@ -31,11 +31,13 @@ namespace DragonAge2CameraTools.ViewLogic.ViewModels
         private readonly ISettingsMapper _settingsMapper;
         private readonly ITacticalCameraService _tacticalCameraService;
 
-        public MainWindowViewModel(
+        public MainWindowViewModel
+        (
             IKeyAwaiter keyAwaiter, 
             IApplicationSettingsRepository applicationSettingsRepository, 
             ISettingsMapper settingsMapper, 
-            ITacticalCameraServiceFactory tacticalCameraServiceFactory)
+            ITacticalCameraServiceFactory tacticalCameraServiceFactory
+        )
         {
             _keyAwaiter = keyAwaiter;
             _applicationSettingsRepository = applicationSettingsRepository;
