@@ -37,7 +37,7 @@ namespace DragonAge2CameraTools.UserInputHandling
 
         public void StopLoopingAction()
         {
-            _timer.Change(Timeout.Infinite, Timeout.Infinite);
+            _timer?.Change(Timeout.Infinite, Timeout.Infinite);
             IsLoopingAction = false;
         }
 
